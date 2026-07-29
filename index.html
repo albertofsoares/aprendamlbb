@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprenda MLBB | O Seu Guia Definitivo de Mobile Legends</title>
+    <meta name="description" content="Aprenda tudo sobre Mobile Legends: Bang Bang. Guias de heróis, builds, counters, macro, rotações e muito mais para você subir de elo.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons for UI elements -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mlbb: {
+                            dark: '#0A0F1D',      // Deep navy/black background
+                            card: '#151C33',      // Slightly lighter for cards
+                            primary: '#ED6100',   // Clementine Orange (Brand color)
+                            primaryHover: '#FF7B1C',
+                            secondary: '#A3BDD8', // Light Blue/Silver
+                            accent: '#938ee2',    // Purple hue for magic/mystic feel
+                            gold: '#FFD700',      // Gold for premium/victory feel
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Cinzel', 'serif'], // For epic headings
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to bottom, rgba(10, 15, 29, 0.8), rgba(10, 15, 29, 1)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop')", // Placeholder gaming bg
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0F1D; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ED6100; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF7B1C; 
+        }
+
+        /* Hover effects for cards */
+        .game-card {
+            transition: all 0.3s ease;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(237, 97, 0, 0.4);
+            border-color: #ED6100;
+        }
+
+        /* Text gradient for titles */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #ED6100, #FFD700);
+        }
+    </style>
+</head>
+<body class="bg-mlbb-dark text-gray-200 font-sans antialiased overflow-x-hidden">
+
+    <nav class="fixed w-full z-50 top-0 bg-mlbb-dark/90 backdrop-blur-md border-b border-mlbb-card transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 cursor-pointer">
+                    <a href="#" class="flex items-center gap-2">
+                        <i class="ph-fill ph-sword text-3xl text-mlbb-primary"></i>
+                        <span class="font-display font-bold text-2xl tracking-wider text-white">APRENDA<span class="text-mlbb-primary">MLBB</span></span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#heroes" class="hover:text-mlbb-primary transition-colors px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wide">Heróis</a>
+                        <a href="#builds" class="hover:text-mlbb-primary transition-colors px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wide">Builds</a>
+                        <a href="#macro" class="hover:text-mlbb-primary transition-colors px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wide">Macro & Rotas</a>
+                        <a href="#meta" class="hover:text-mlbb-primary transition-colors px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wide">Meta Atual</a>
+                        <a href="#guias" class="bg-mlbb-primary hover:bg-mlbb-primaryHover text-white px-5 py-2 rounded-full text-sm font-bold uppercase tracking-wide transition-all shadow-lg shadow-mlbb-primary/30">Todos os Guias</a>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-mlbb-card border-b border-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#heroes" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-mlbb-primary/20 hover:text-mlbb-primary">Heróis & Counters</a>
+                <a href="#builds" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-mlbb-primary/20 hover:text-mlbb-primary">Builds & Emblemas</a>
+                <a href="#macro" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-mlbb-primary/20 hover:text-mlbb-primary">Macro & Visão de Jogo</a>
+                <a href="#meta" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-mlbb-primary/20 hover:text-mlbb-primary">Tier List & Meta</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-hero-pattern bg-cover bg-center bg-no-repeat bg-fixed border-b border-mlbb-primary/30">
+        <div class="absolute inset-0 bg-gradient-to-t from-mlbb-dark via-mlbb-dark/80 to-transparent"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+            <span class="inline-block py-1 px-3 rounded-full bg-mlbb-accent/20 text-mlbb-accent border border-mlbb-accent/50 text-xs font-bold tracking-widest uppercase mb-6 animate-pulse">
+                Temporada Atualizada
+            </span>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
+                Domine a Terra do Amanhecer <br class="hidden md:block">
+                <span class="text-gradient">Suba de Elo Hoje</span>
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-mlbb-secondary mb-10">
+                O maior acervo de conhecimento de Mobile Legends: Bang Bang. Aprenda macro, mecânicas de heróis, builds perfeitas e destrua o nexus inimigo.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#guias" class="bg-mlbb-primary hover:bg-mlbb-primaryHover text-white font-bold py-4 px-8 rounded-lg transition-all shadow-[0_0_20px_rgba(237,97,0,0.5)] flex items-center justify-center gap-2">
+                    Começar a Aprender <i class="ph-bold ph-arrow-right"></i>
+                </a>
+                <a href="#meta" class="bg-mlbb-card hover:bg-gray-800 border border-gray-700 text-white font-bold py-4 px-8 rounded-lg transition-all flex items-center justify-center gap-2">
+                    Ver Meta Atual <i class="ph-bold ph-trend-up"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="categorias" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4">Escolha Seu Caminho</h2>
+                <div class="w-24 h-1 bg-mlbb-primary mx-auto rounded-full"></div>
+                <p class="mt-4 text-mlbb-secondary">Selecione uma categoria para focar o seu aprendizado e melhorar sua gameplay.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Category Card 1 -->
+                <a href="#" class="game-card bg-mlbb-card rounded-xl p-6 border border-gray-800 flex flex-col items-center text-center group cursor-pointer relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-mlbb-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-16 h-16 rounded-full bg-mlbb-dark flex items-center justify-center mb-4 border border-gray-700 group-hover:border-mlbb-primary transition-colors">
+                        <i class="ph-fill ph-sword text-3xl text-mlbb-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 font-display">Heróis & Counters</h3>
+                    <p class="text-sm text-gray-400">Análises profundas, combos, power spikes e como counterar cada herói do jogo.</p>
+                </a>
+
+                <!-- Category Card 2 -->
+                <a href="#" class="game-card bg-mlbb-card rounded-xl p-6 border border-gray-800 flex flex-col items-center text-center group cursor-pointer relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-mlbb-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-16 h-16 rounded-full bg-mlbb-dark flex items-center justify-center mb-4 border border-gray-700 group-hover:border-mlbb-primary transition-colors">
+                        <i class="ph-fill ph-shield-plus text-3xl text-mlbb-gold"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 font-display">Builds & Emblemas</h3>
+                    <p class="text-sm text-gray-400">Itens situacionais, matemática do dano, e configurações otimizadas de emblemas.</p>
+                </a>
+
+                <!-- Category Card 3 -->
+                <a href="#" class="game-card bg-mlbb-card rounded-xl p-6 border border-gray-800 flex flex-col items-center text-center group cursor-pointer relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-mlbb-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-16 h-16 rounded-full bg-mlbb-dark flex items-center justify-center mb-4 border border-gray-700 group-hover:border-mlbb-primary transition-colors">
+                        <i class="ph-fill ph-map-trifold text-3xl text-mlbb-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 font-display">Macro & Rotações</h3>
+                    <p class="text-sm text-gray-400">Controle de mapa, tempos de selva, obrigações de cada rota e tomada de decisão.</p>
+                </a>
+
+                <!-- Category Card 4 -->
+                <a href="#" class="game-card bg-mlbb-card rounded-xl p-6 border border-gray-800 flex flex-col items-center text-center group cursor-pointer relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-mlbb-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-16 h-16 rounded-full bg-mlbb-dark flex items-center justify-center mb-4 border border-gray-700 group-hover:border-mlbb-primary transition-colors">
+                        <i class="ph-fill ph-users-three text-3xl text-blue-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 font-display">Composições</h3>
+                    <p class="text-sm text-gray-400">Sinergias entre heróis, wombo combos, e como draftar melhor na fase de escolhas.</p>
+                </a>
+
+                <!-- Category Card 5 -->
+                <a href="#" class="game-card bg-mlbb-card rounded-xl p-6 border border-gray-800 flex flex-col items-center text-center group cursor-pointer relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-mlbb-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-16 h-16 rounded-full bg-mlbb-dark flex items-center justify-center mb-4 border border-gray-700 group-hover:border-mlbb-primary transition-colors">
+                        <i class="ph-fill ph-crown text-3xl text-yellow-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 font-display">Meta Tier List</h3>
+                    <p class="text-sm text-gray-400">Os heróis mais fortes do patch atual separados por rotas para facilitar sua subida de elo.</p>
+                </a>
+
+                <!-- Category Card 6 -->
+                <a href="#" class="game-card bg-mlbb-card rounded-xl p-6 border border-gray-800 flex flex-col items-center text-center group cursor-pointer relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-mlbb-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-16 h-16 rounded-full bg-mlbb-dark flex items-center justify-center mb-4 border border-gray-700 group-hover:border-mlbb-primary transition-colors">
+                        <i class="ph-fill ph-hourglass-high text-3xl text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 font-display">Tempo de Jogo</h3>
+                    <p class="text-sm text-gray-400">Entenda early, mid e late game. Saiba quando lutar, quando recuar e quando fazer o Lord.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="guias" class="py-20 bg-mlbb-card/50 relative border-t border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <h2 class="text-3xl font-display font-bold text-white mb-2">Artigos Recentes</h2>
+                    <p class="text-mlbb-secondary">O conteúdo mais novo para manter você atualizado.</p>
+                </div>
+                <a href="#" class="hidden sm:flex text-mlbb-primary hover:text-white transition-colors items-center gap-1 font-semibold">
+                    Ver todos <i class="ph-bold ph-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Blog Post Card 1 (Macro) -->
+                <article class="bg-mlbb-dark rounded-xl overflow-hidden border border-gray-800 hover:border-mlbb-primary transition-all duration-300 group flex flex-col">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2071&auto=format&fit=crop" alt="Visão de Mapa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-4 left-4 bg-mlbb-accent text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-lg">
+                            Macro
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex items-center text-xs text-gray-400 mb-3 gap-4">
+                            <span class="flex items-center gap-1"><i class="ph ph-calendar-blank"></i> 12 Jul, 2026</span>
+                            <span class="flex items-center gap-1"><i class="ph ph-clock"></i> 8 min de leitura</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-mlbb-primary transition-colors line-clamp-2">
+                            A Arte de Congelar a Rota: Quando e Como Fazer
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3 flex-1">
+                            Aprenda a controlar a onda de minions na EXP Lane e Gold Lane para negar ouro ao inimigo e criar oportunidades de gank perfeitas para o seu caçador.
+                        </p>
+                        <a href="#" class="mt-auto inline-flex items-center text-mlbb-primary font-semibold hover:text-white transition-colors">
+                            Ler Guia Completo <i class="ph-bold ph-caret-right ml-1"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Blog Post Card 2 (Hero Guide) -->
+                <article class="bg-mlbb-dark rounded-xl overflow-hidden border border-gray-800 hover:border-mlbb-primary transition-all duration-300 group flex flex-col">
+                    <div class="relative h-48 overflow-hidden bg-gray-900 flex items-center justify-center">
+                         <!-- Placeholder for Hero Image, using a generic cool graphic -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-red-900/40 to-black z-10"></div>
+                        <i class="ph-fill ph-sword text-6xl text-gray-700 z-0 opacity-50"></i>
+                        <img src="https://placehold.co/600x400/151C33/ED6100?text=Hero+Image" alt="Chou Guide" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 absolute inset-0 z-0 opacity-70">
+                        
+                        <div class="absolute top-4 left-4 z-20 bg-mlbb-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-lg">
+                            Guia de Herói
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex items-center text-xs text-gray-400 mb-3 gap-4">
+                            <span class="flex items-center gap-1"><i class="ph ph-calendar-blank"></i> 10 Jul, 2026</span>
+                            <span class="flex items-center gap-1"><i class="ph ph-clock"></i> 12 min de leitura</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-mlbb-primary transition-colors line-clamp-2">
+                            Guia Definitivo: Dominando o Freestyle e Posicionamento
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3 flex-1">
+                            Mais do que apenas chutar inimigos para trás. Entenda o verdadeiro papel de um fighter de iniciação, mecânicas avançadas de flicker e builds defensivas vs ofensivas.
+                        </p>
+                        <a href="#" class="mt-auto inline-flex items-center text-mlbb-primary font-semibold hover:text-white transition-colors">
+                            Ler Guia Completo <i class="ph-bold ph-caret-right ml-1"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Blog Post Card 3 (Builds/Items) -->
+                <article class="bg-mlbb-dark rounded-xl overflow-hidden border border-gray-800 hover:border-mlbb-primary transition-all duration-300 group flex flex-col">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=1931&auto=format&fit=crop" alt="Itens MLBB" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80">
+                        <div class="absolute top-4 left-4 bg-mlbb-gold text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-lg">
+                            Análise de Itens
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex items-center text-xs text-gray-400 mb-3 gap-4">
+                            <span class="flex items-center gap-1"><i class="ph ph-calendar-blank"></i> 05 Jul, 2026</span>
+                            <span class="flex items-center gap-1"><i class="ph ph-clock"></i> 6 min de leitura</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-mlbb-primary transition-colors line-clamp-2">
+                            Penetração Mágica vs Poder Mágico Bruto
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3 flex-1">
+                            A matemática por trás do dano mágico. Descubra quando vale mais a pena fazer Glaive Divina em vez de Asas Sangrentas contra diferentes composições.
+                        </p>
+                        <a href="#" class="mt-auto inline-flex items-center text-mlbb-primary font-semibold hover:text-white transition-colors">
+                            Ler Guia Completo <i class="ph-bold ph-caret-right ml-1"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="mt-10 text-center sm:hidden">
+                 <a href="#" class="inline-flex bg-mlbb-card border border-gray-700 hover:bg-gray-800 text-white py-3 px-6 rounded-lg transition-colors font-semibold">
+                    Ver todos os artigos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 relative overflow-hidden">
+        <!-- Background decorative elements -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+            <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-mlbb-primary/5 blur-[100px]"></div>
+            <div class="absolute bottom-[0%] -right-[10%] w-[40%] h-[40%] rounded-full bg-mlbb-accent/10 blur-[120px]"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <i class="ph-fill ph-envelope-simple-open text-5xl text-mlbb-primary mb-6"></i>
+            <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4">Suba para o Glória Mítico</h2>
+            <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
+                Inscreva-se na nossa newsletter e receba as atualizações do meta, nerfs, buffs e novos guias diretamente no seu email antes de todo mundo.
+            </p>
+            
+            <form class="flex flex-col sm:flex-row gap-3 justify-center max-w-lg mx-auto" onsubmit="event.preventDefault(); alert('Em um site real, isso cadastraria o email!');">
+                <input type="email" placeholder="Seu melhor e-mail" required class="w-full sm:w-2/3 px-5 py-4 rounded-lg bg-mlbb-dark border border-gray-700 text-white focus:outline-none focus:border-mlbb-primary focus:ring-1 focus:ring-mlbb-primary transition-colors">
+                <button type="submit" class="w-full sm:w-1/3 bg-mlbb-primary hover:bg-mlbb-primaryHover text-white font-bold py-4 px-6 rounded-lg transition-all shadow-lg">
+                    Inscrever-se
+                </button>
+            </form>
+            <p class="text-xs text-gray-500 mt-4">Sem spam. Apenas conteúdo de alta qualidade para melhorar sua gameplay.</p>
+        </div>
+    </section>
+
+    <footer class="bg-mlbb-dark border-t border-gray-800 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <!-- Brand Column -->
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#" class="flex items-center gap-2 mb-4">
+                        <i class="ph-fill ph-sword text-3xl text-mlbb-primary"></i>
+                        <span class="font-display font-bold text-2xl tracking-wider text-white">APRENDA<span class="text-mlbb-primary">MLBB</span></span>
+                    </a>
+                    <p class="text-gray-400 text-sm max-w-sm mb-6 leading-relaxed">
+                        O seu portal definitivo para aprender Mobile Legends: Bang Bang. Focado em macro, mecânicas, builds e no desenvolvimento da comunidade BR.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors"><i class="ph-fill ph-youtube-logo text-2xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors"><i class="ph-fill ph-instagram-logo text-2xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors"><i class="ph-fill ph-discord-logo text-2xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors"><i class="ph-fill ph-tiktok-logo text-2xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links Column 1 -->
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Categorias Principais</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Guia de Heróis</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Builds e Itens</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Macro Gaming</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tier List (Meta)</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Dicionário MOBA</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links Column 2 -->
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Sobre o Projeto</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Sobre Nós</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contato</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Termos de Uso</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-xs text-center md:text-left">
+                    &copy; 2026 Aprenda MLBB. Criado para a comunidade. <br class="sm:hidden">
+                    Este site não é afiliado ou endossado pela MOONTON Games.
+                </p>
+                <div class="text-gray-500 text-xs">
+                    Desenvolvido com <i class="ph-fill ph-heart text-mlbb-primary inline"></i> para jogadores.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when clicking a link
+            const mobileLinks = menu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.add('hidden');
+                });
+            });
+
+            // Navbar background change on scroll
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-lg', 'bg-mlbb-dark/95');
+                    navbar.classList.remove('bg-mlbb-dark/90');
+                } else {
+                    navbar.classList.remove('shadow-lg', 'bg-mlbb-dark/95');
+                    navbar.classList.add('bg-mlbb-dark/90');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
