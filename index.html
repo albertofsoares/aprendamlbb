@@ -6,12 +6,17 @@
     <title>Aprenda MLBB | O Seu Guia Definitivo de Mobile Legends</title>
     <meta name="description" content="Aprenda tudo sobre Mobile Legends: Bang Bang. Guias de heróis, builds, counters, macro, rotações e muito mais para você subir de elo.">
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind with Typography Plugin para formatar os artigos -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <!-- Phosphor Icons for UI elements -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Editor Dependencies (Quill.js) -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -91,10 +96,11 @@
                 <!-- Desktop Menu -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#heroes" class="hover:text-mlbb-primary transition-colors px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wide">Heróis</a>
-                        <a href="#builds" class="hover:text-mlbb-primary transition-colors px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wide">Builds</a>
-                        <a href="#macro" class="hover:text-mlbb-primary transition-colors px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wide">Macro & Rotas</a>
-                        <a href="#meta" class="hover:text-mlbb-primary transition-colors px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wide">Meta Atual</a>
+                        <a href="#categorias" class="hover:text-mlbb-primary transition-colors px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wide">Heróis</a>
+                        <a href="#categorias" class="hover:text-mlbb-primary transition-colors px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wide">Builds</a>
+                        <a href="#categorias" class="hover:text-mlbb-primary transition-colors px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wide">Macro & Rotas</a>
+                        <a href="#categorias" class="hover:text-mlbb-primary transition-colors px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wide">Meta Atual</a>
+                        <a href="#" onclick="openDashboard(event)" class="text-mlbb-accent hover:text-white transition-colors px-3 py-2 rounded-md text-sm font-bold uppercase tracking-wide flex items-center gap-1"><i class="ph ph-code text-lg"></i> Editor</a>
                         <a href="#guias" class="bg-mlbb-primary hover:bg-mlbb-primaryHover text-white px-5 py-2 rounded-full text-sm font-bold uppercase tracking-wide transition-all shadow-lg shadow-mlbb-primary/30">Todos os Guias</a>
                     </div>
                 </div>
@@ -111,10 +117,11 @@
         <!-- Mobile Menu Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden bg-mlbb-card border-b border-gray-800">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#heroes" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-mlbb-primary/20 hover:text-mlbb-primary">Heróis & Counters</a>
-                <a href="#builds" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-mlbb-primary/20 hover:text-mlbb-primary">Builds & Emblemas</a>
-                <a href="#macro" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-mlbb-primary/20 hover:text-mlbb-primary">Macro & Visão de Jogo</a>
-                <a href="#meta" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-mlbb-primary/20 hover:text-mlbb-primary">Tier List & Meta</a>
+                <a href="#categorias" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-mlbb-primary/20 hover:text-mlbb-primary">Heróis & Counters</a>
+                <a href="#categorias" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-mlbb-primary/20 hover:text-mlbb-primary">Builds & Emblemas</a>
+                <a href="#categorias" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-mlbb-primary/20 hover:text-mlbb-primary">Macro & Visão de Jogo</a>
+                <a href="#categorias" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-mlbb-primary/20 hover:text-mlbb-primary">Tier List & Meta</a>
+                <a href="#" onclick="openDashboard(event)" class="block px-3 py-2 rounded-md text-base font-bold text-mlbb-accent hover:bg-mlbb-accent/20 hover:text-white flex items-center gap-2"><i class="ph ph-code text-xl"></i> Editor</a>
             </div>
         </div>
     </nav>
@@ -137,7 +144,7 @@
                 <a href="#guias" class="bg-mlbb-primary hover:bg-mlbb-primaryHover text-white font-bold py-4 px-8 rounded-lg transition-all shadow-[0_0_20px_rgba(237,97,0,0.5)] flex items-center justify-center gap-2">
                     Começar a Aprender <i class="ph-bold ph-arrow-right"></i>
                 </a>
-                <a href="#meta" class="bg-mlbb-card hover:bg-gray-800 border border-gray-700 text-white font-bold py-4 px-8 rounded-lg transition-all flex items-center justify-center gap-2">
+                <a href="#categorias" class="bg-mlbb-card hover:bg-gray-800 border border-gray-700 text-white font-bold py-4 px-8 rounded-lg transition-all flex items-center justify-center gap-2">
                     Ver Meta Atual <i class="ph-bold ph-trend-up"></i>
                 </a>
             </div>
@@ -228,86 +235,8 @@
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Blog Post Card 1 (Macro) -->
-                <article class="bg-mlbb-dark rounded-xl overflow-hidden border border-gray-800 hover:border-mlbb-primary transition-all duration-300 group flex flex-col">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2071&auto=format&fit=crop" alt="Visão de Mapa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute top-4 left-4 bg-mlbb-accent text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-lg">
-                            Macro
-                        </div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <div class="flex items-center text-xs text-gray-400 mb-3 gap-4">
-                            <span class="flex items-center gap-1"><i class="ph ph-calendar-blank"></i> 12 Jul, 2026</span>
-                            <span class="flex items-center gap-1"><i class="ph ph-clock"></i> 8 min de leitura</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-mlbb-primary transition-colors line-clamp-2">
-                            A Arte de Congelar a Rota: Quando e Como Fazer
-                        </h3>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-3 flex-1">
-                            Aprenda a controlar a onda de minions na EXP Lane e Gold Lane para negar ouro ao inimigo e criar oportunidades de gank perfeitas para o seu caçador.
-                        </p>
-                        <a href="#" class="mt-auto inline-flex items-center text-mlbb-primary font-semibold hover:text-white transition-colors">
-                            Ler Guia Completo <i class="ph-bold ph-caret-right ml-1"></i>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- Blog Post Card 2 (Hero Guide) -->
-                <article class="bg-mlbb-dark rounded-xl overflow-hidden border border-gray-800 hover:border-mlbb-primary transition-all duration-300 group flex flex-col">
-                    <div class="relative h-48 overflow-hidden bg-gray-900 flex items-center justify-center">
-                         <!-- Placeholder for Hero Image, using a generic cool graphic -->
-                        <div class="absolute inset-0 bg-gradient-to-br from-red-900/40 to-black z-10"></div>
-                        <i class="ph-fill ph-sword text-6xl text-gray-700 z-0 opacity-50"></i>
-                        <img src="https://placehold.co/600x400/151C33/ED6100?text=Hero+Image" alt="Chou Guide" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 absolute inset-0 z-0 opacity-70">
-                        
-                        <div class="absolute top-4 left-4 z-20 bg-mlbb-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-lg">
-                            Guia de Herói
-                        </div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <div class="flex items-center text-xs text-gray-400 mb-3 gap-4">
-                            <span class="flex items-center gap-1"><i class="ph ph-calendar-blank"></i> 10 Jul, 2026</span>
-                            <span class="flex items-center gap-1"><i class="ph ph-clock"></i> 12 min de leitura</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-mlbb-primary transition-colors line-clamp-2">
-                            Guia Definitivo: Dominando o Freestyle e Posicionamento
-                        </h3>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-3 flex-1">
-                            Mais do que apenas chutar inimigos para trás. Entenda o verdadeiro papel de um fighter de iniciação, mecânicas avançadas de flicker e builds defensivas vs ofensivas.
-                        </p>
-                        <a href="#" class="mt-auto inline-flex items-center text-mlbb-primary font-semibold hover:text-white transition-colors">
-                            Ler Guia Completo <i class="ph-bold ph-caret-right ml-1"></i>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- Blog Post Card 3 (Builds/Items) -->
-                <article class="bg-mlbb-dark rounded-xl overflow-hidden border border-gray-800 hover:border-mlbb-primary transition-all duration-300 group flex flex-col">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=1931&auto=format&fit=crop" alt="Itens MLBB" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80">
-                        <div class="absolute top-4 left-4 bg-mlbb-gold text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-lg">
-                            Análise de Itens
-                        </div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <div class="flex items-center text-xs text-gray-400 mb-3 gap-4">
-                            <span class="flex items-center gap-1"><i class="ph ph-calendar-blank"></i> 05 Jul, 2026</span>
-                            <span class="flex items-center gap-1"><i class="ph ph-clock"></i> 6 min de leitura</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-mlbb-primary transition-colors line-clamp-2">
-                            Penetração Mágica vs Poder Mágico Bruto
-                        </h3>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-3 flex-1">
-                            A matemática por trás do dano mágico. Descubra quando vale mais a pena fazer Glaive Divina em vez de Asas Sangrentas contra diferentes composições.
-                        </p>
-                        <a href="#" class="mt-auto inline-flex items-center text-mlbb-primary font-semibold hover:text-white transition-colors">
-                            Ler Guia Completo <i class="ph-bold ph-caret-right ml-1"></i>
-                        </a>
-                    </div>
-                </article>
+            <!-- Este grid agora é renderizado via JavaScript -->
+            <div id="posts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             </div>
             
             <div class="mt-10 text-center sm:hidden">
@@ -332,19 +261,141 @@
                 Inscreva-se na nossa newsletter e receba as atualizações do meta, nerfs, buffs e novos guias diretamente no seu email antes de todo mundo.
             </p>
             
-            <form class="flex flex-col sm:flex-row gap-3 justify-center max-w-lg mx-auto" onsubmit="event.preventDefault(); alert('Em um site real, isso cadastraria o email!');">
-                <input type="email" placeholder="Seu melhor e-mail" required class="w-full sm:w-2/3 px-5 py-4 rounded-lg bg-mlbb-dark border border-gray-700 text-white focus:outline-none focus:border-mlbb-primary focus:ring-1 focus:ring-mlbb-primary transition-colors">
-                <button type="submit" class="w-full sm:w-1/3 bg-mlbb-primary hover:bg-mlbb-primaryHover text-white font-bold py-4 px-6 rounded-lg transition-all shadow-lg">
-                    Inscrever-se
+            <!-- Removed the alert() and added a JavaScript function call handled below -->
+            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 justify-center max-w-lg mx-auto">
+                <input type="email" id="email-input" placeholder="Seu melhor e-mail" required class="w-full sm:w-2/3 px-5 py-4 rounded-lg bg-mlbb-dark border border-gray-700 text-white focus:outline-none focus:border-mlbb-primary focus:ring-1 focus:ring-mlbb-primary transition-colors">
+                <button type="submit" class="w-full sm:w-1/3 bg-mlbb-primary hover:bg-mlbb-primaryHover text-white font-bold py-4 px-6 rounded-lg transition-all shadow-lg flex justify-center items-center gap-2">
+                    <span>Inscrever-se</span>
                 </button>
             </form>
             <p class="text-xs text-gray-500 mt-4">Sem spam. Apenas conteúdo de alta qualidade para melhorar sua gameplay.</p>
         </div>
     </section>
 
+    <!-- Overlay: Dashboard Gerenciador -->
+    <div id="editor-dashboard" class="fixed inset-0 bg-mlbb-dark/95 backdrop-blur-md z-[100] hidden flex-col transition-opacity duration-300 opacity-0 overflow-y-auto">
+        <div class="max-w-7xl mx-auto w-full p-4 sm:p-6 lg:p-10 pt-24">
+            <div class="flex justify-between items-center mb-8 border-b border-gray-800 pb-4">
+                <h2 class="text-2xl sm:text-3xl font-display font-bold text-white flex items-center gap-3">
+                    <i class="ph-fill ph-kanban text-mlbb-accent"></i> Gerenciador de Guias
+                </h2>
+                <button onclick="closeDashboard()" class="text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition-colors shadow-lg">
+                    <i class="ph-bold ph-x text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                <p class="text-gray-400">Gerencie, edite ou crie novos conteúdos para o portal.</p>
+                <button onclick="openEditorModal()" class="w-full sm:w-auto bg-mlbb-accent hover:bg-purple-600 text-white px-5 py-3 rounded-lg font-bold flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(147,142,226,0.3)] transition-all">
+                    <i class="ph-bold ph-plus"></i> Novo Guia
+                </button>
+            </div>
+
+            <div class="bg-mlbb-card border border-gray-800 rounded-xl overflow-hidden shadow-2xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-gray-400">
+                        <thead class="text-xs text-gray-300 uppercase bg-gray-800/80">
+                            <tr>
+                                <th scope="col" class="px-6 py-4 rounded-tl-xl font-bold">Título</th>
+                                <th scope="col" class="px-6 py-4 font-bold">Categoria</th>
+                                <th scope="col" class="px-6 py-4 font-bold hidden sm:table-cell">Data</th>
+                                <th scope="col" class="px-6 py-4 text-right rounded-tr-xl font-bold">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dashboard-posts-list" class="divide-y divide-gray-800">
+                            <!-- JS injeta os itens aqui -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay: Modal de Edição (Quill) -->
+    <div id="editor-modal" class="fixed inset-0 bg-mlbb-card z-[110] hidden flex-col transition-opacity duration-300 opacity-0">
+        <div class="border-b border-gray-800 bg-mlbb-dark px-4 sm:px-6 py-4 flex justify-between items-center shadow-md">
+            <h3 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2 font-display">
+                <i class="ph-fill ph-pen-nib text-mlbb-primary"></i> <span id="editor-title-text">Criar Novo Guia</span>
+            </h3>
+            <div class="flex gap-2 sm:gap-3">
+                <button onclick="closeEditorModal()" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors border border-gray-700">
+                    Cancelar
+                </button>
+                <button onclick="savePost()" class="px-4 sm:px-6 py-2 text-xs sm:text-sm font-bold text-white bg-mlbb-primary hover:bg-mlbb-primaryHover rounded-md transition-colors flex items-center gap-2 shadow-lg shadow-mlbb-primary/30">
+                    <i class="ph-bold ph-floppy-disk"></i> Salvar
+                </button>
+            </div>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-10 custom-scrollbar">
+            <div class="max-w-5xl mx-auto space-y-6">
+                <input type="hidden" id="post-id">
+                
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-2">Título do Guia</label>
+                    <input type="text" id="post-title" class="w-full bg-mlbb-dark border border-gray-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-mlbb-primary focus:ring-1 focus:ring-mlbb-primary text-lg sm:text-xl font-bold transition-all" placeholder="Ex: Como masterizar o Chou em 2026">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-2">Categoria</label>
+                        <select id="post-category" class="w-full bg-mlbb-dark border border-gray-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-mlbb-primary transition-all appearance-none cursor-pointer">
+                            <option value="Macro">Macro</option>
+                            <option value="Guia de Herói">Guia de Herói</option>
+                            <option value="Análise de Itens">Análise de Itens</option>
+                            <option value="Meta">Meta & Tier List</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-2">URL da Imagem de Capa</label>
+                        <input type="url" id="post-image" class="w-full bg-mlbb-dark border border-gray-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-mlbb-primary transition-all" placeholder="https://exemplo.com/imagem.jpg">
+                    </div>
+                </div>
+
+                <div class="mb-4 flex flex-col h-[500px]">
+                    <label class="block text-sm font-bold text-gray-300 mb-2">Conteúdo do Guia (Editor Rico)</label>
+                    <div class="bg-gray-50 text-gray-900 rounded-lg overflow-hidden border border-gray-700 flex-1 flex flex-col shadow-inner">
+                        <div id="editor-container" class="flex-1 text-base"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay: Modal de Leitura de Post (View) -->
+    <div id="read-post-modal" class="fixed inset-0 bg-mlbb-dark/95 backdrop-blur-md z-[100] hidden flex-col transition-opacity duration-300 opacity-0 overflow-y-auto custom-scrollbar">
+        <div class="max-w-4xl mx-auto w-full p-0 sm:p-6 lg:p-10 pt-0 sm:pt-20 min-h-screen flex flex-col">
+            <div class="sticky top-0 sm:static bg-mlbb-dark sm:bg-transparent z-10 p-4 sm:p-0 border-b border-gray-800 sm:border-none mb-0 sm:mb-8 flex justify-between items-center shadow-md sm:shadow-none">
+                <button onclick="closeReadModal()" class="text-gray-300 hover:text-white bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-full transition-colors flex items-center gap-2 font-semibold">
+                    <i class="ph-bold ph-arrow-left"></i> Voltar
+                </button>
+            </div>
+            
+            <article class="bg-mlbb-card rounded-none sm:rounded-2xl overflow-hidden border-x border-b sm:border border-gray-800 shadow-2xl flex-1">
+                <div class="w-full h-48 sm:h-64 md:h-96 relative">
+                    <img id="read-post-img" src="" alt="Capa" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-mlbb-card to-transparent"></div>
+                    <div id="read-post-category" class="absolute top-4 left-4 sm:top-6 sm:left-6 bg-mlbb-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-lg"></div>
+                </div>
+                <div class="p-6 sm:p-8 md:p-12">
+                    <div class="flex items-center text-xs sm:text-sm text-gray-400 mb-4 gap-6">
+                        <span id="read-post-date" class="flex items-center gap-2"><i class="ph ph-calendar-blank"></i></span>
+                    </div>
+                    <h1 id="read-post-title" class="text-2xl sm:text-3xl md:text-5xl font-display font-bold text-white mb-8 leading-tight"></h1>
+                    
+                    <!-- O plugin Typography formata essa div perfeitamente -->
+                    <div id="read-post-content" class="prose prose-invert prose-orange max-w-none prose-headings:font-display prose-headings:text-white prose-a:text-mlbb-primary hover:prose-a:text-mlbb-primaryHover prose-img:rounded-xl prose-img:shadow-lg prose-hr:border-gray-800 text-gray-300">
+                        <!-- Conteúdo injetado via JS -->
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
     <footer class="bg-mlbb-dark border-t border-gray-800 pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                
                 <!-- Brand Column -->
                 <div class="col-span-1 md:col-span-2">
                     <a href="#" class="flex items-center gap-2 mb-4">
@@ -352,55 +403,72 @@
                         <span class="font-display font-bold text-2xl tracking-wider text-white">APRENDA<span class="text-mlbb-primary">MLBB</span></span>
                     </a>
                     <p class="text-gray-400 text-sm max-w-sm mb-6 leading-relaxed">
-                        O seu portal definitivo para aprender Mobile Legends: Bang Bang. Focado em macro, mecânicas, builds e no desenvolvimento da comunidade BR.
+                        O seu portal definitivo para aprender Mobile Legends: Bang Bang. Focado em macro, mecânicas, builds e no desenvolvimento da sua visão de jogo para alcançar o Glória Mítico e muito além.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors"><i class="ph-fill ph-youtube-logo text-2xl"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors"><i class="ph-fill ph-instagram-logo text-2xl"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors"><i class="ph-fill ph-discord-logo text-2xl"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors"><i class="ph-fill ph-tiktok-logo text-2xl"></i></a>
+                        <a href="#" aria-label="YouTube" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-mlbb-primary hover:text-white transition-colors">
+                            <i class="ph-fill ph-youtube-logo text-xl"></i>
+                        </a>
+                        <a href="#" aria-label="Discord" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-mlbb-primary hover:text-white transition-colors">
+                            <i class="ph-fill ph-discord-logo text-xl"></i>
+                        </a>
+                        <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-mlbb-primary hover:text-white transition-colors">
+                            <i class="ph-fill ph-instagram-logo text-xl"></i>
+                        </a>
+                        <a href="#" aria-label="TikTok" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-mlbb-primary hover:text-white transition-colors">
+                            <i class="ph-fill ph-tiktok-logo text-xl"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Links Column 1 -->
+                <!-- Quick Links Column -->
                 <div>
-                    <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Categorias Principais</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Guia de Heróis</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Builds e Itens</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Macro Gaming</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tier List (Meta)</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Dicionário MOBA</a></li>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm font-display">Links Rápidos</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors text-sm">Tier List Atual</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors text-sm">Guias para Iniciantes</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors text-sm">Matemática do Jogo</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors text-sm">Patch Notes Explicados</a></li>
                     </ul>
                 </div>
 
-                <!-- Links Column 2 -->
+                <!-- Legal Column -->
                 <div>
-                    <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Sobre o Projeto</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Sobre Nós</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contato</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Política de Privacidade</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Termos de Uso</a></li>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm font-display">Legal</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors text-sm">Sobre Nós</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors text-sm">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors text-sm">Termos de Uso</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-mlbb-primary transition-colors text-sm">Contato</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-gray-500 text-xs text-center md:text-left">
-                    &copy; 2026 Aprenda MLBB. Criado para a comunidade. <br class="sm:hidden">
-                    Este site não é afiliado ou endossado pela MOONTON Games.
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm text-center md:text-left mb-4 md:mb-0">
+                    &copy; 2026 Aprenda MLBB. Este site não é afiliado à Moonton. Mobile Legends: Bang Bang é uma marca registrada da Moonton.
                 </p>
-                <div class="text-gray-500 text-xs">
-                    Desenvolvido com <i class="ph-fill ph-heart text-mlbb-primary inline"></i> para jogadores.
+                <div class="text-gray-500 text-sm flex items-center gap-1">
+                    Feito com <i class="ph-fill ph-heart text-mlbb-primary"></i> para a comunidade.
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Custom Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 sm:bottom-10 sm:right-10 bg-mlbb-card border-l-4 border-mlbb-primary text-white p-4 rounded-r-lg shadow-[0_5px_20px_rgba(0,0,0,0.5)] transform translate-y-[150%] opacity-0 transition-all duration-300 z-50 flex items-center gap-4 max-w-sm">
+        <div class="bg-green-500/20 p-2 rounded-full text-green-400">
+            <i class="ph-fill ph-check-circle text-2xl"></i>
+        </div>
+        <div>
+            <h4 class="font-bold text-sm sm:text-base">Inscrição Confirmada!</h4>
+            <p class="text-xs sm:text-sm text-gray-400">Você agora faz parte da elite.</p>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Mobile Menu Toggle
+            // --- Mobile Menu Toggle ---
             const btn = document.getElementById('mobile-menu-btn');
             const menu = document.getElementById('mobile-menu');
 
@@ -408,26 +476,319 @@
                 menu.classList.toggle('hidden');
             });
 
-            // Close mobile menu when clicking a link
-            const mobileLinks = menu.querySelectorAll('a');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    menu.classList.add('hidden');
-                });
-            });
-
-            // Navbar background change on scroll
+            // --- Navbar Background Effect on Scroll ---
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('shadow-lg', 'bg-mlbb-dark/95');
-                    navbar.classList.remove('bg-mlbb-dark/90');
+                if (window.scrollY > 20) {
+                    navbar.classList.add('shadow-lg', 'border-b', 'border-mlbb-card');
                 } else {
-                    navbar.classList.remove('shadow-lg', 'bg-mlbb-dark/95');
-                    navbar.classList.add('bg-mlbb-dark/90');
+                    // Optional: remove border when at the very top for cleaner look
+                    // navbar.classList.remove('shadow-lg', 'border-b', 'border-mlbb-card');
                 }
             });
+
+            // --- Form Submission & Custom Toast (Replaces alert()) ---
+            const form = document.getElementById('newsletter-form');
+            const toast = document.getElementById('toast');
+            const emailInput = document.getElementById('email-input');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Show toast notification
+                showCustomToast('Inscrição Confirmada!', 'Você agora faz parte da elite.');
+                
+                // Reset form
+                emailInput.value = '';
+            });
+
+            // Initial render
+            renderPosts();
         });
+
+        // ----------------------------------------------------
+        // LÓGICA DE GERENCIAMENTO: ESTADO E DADOS INICIAIS
+        // ----------------------------------------------------
+        let posts = [
+            {
+                id: 1,
+                title: "A Arte de Congelar a Rota: Quando e Como Fazer",
+                category: "Macro",
+                categoryColor: "bg-mlbb-accent",
+                date: "12 Jul, 2026",
+                image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2071&auto=format&fit=crop",
+                content: "<h3>Por que congelar a rota?</h3><p>O conceito de <strong>freezing</strong> é fundamental nas rotas laterais (EXP e Gold). Ao manter os minions perto da sua torre, mas fora do alcance dela, você ganha 3 vantagens principais:</p><ul><li>Você fica seguro contra ganks do Caçador e Mago inimigo.</li><li>O seu oponente é forçado a avançar no mapa para pegar experiência, tornando-se um alvo fácil.</li><li>Se você tiver vantagem na rota, pode se posicionar na frente da onda e negar farm completamente (Zoning).</li></ul><p><br></p><h3>Como executar perfeitamente:</h3><p>Deixe sempre de 3 a 4 minions magos inimigos vivos a mais do que os seus. Puxe o aggro deles e os arraste para o canto antes que entrem na torre. Pronto, a rota congelará automaticamente!</p>"
+            },
+            {
+                id: 2,
+                title: "Guia Definitivo: Dominando o Freestyle e Posicionamento",
+                category: "Guia de Herói",
+                categoryColor: "bg-mlbb-primary",
+                date: "10 Jul, 2026",
+                image: "https://placehold.co/600x400/151C33/ED6100?text=Guia+de+Heroi",
+                content: "<h3>Mais do que mecânica pura</h3><p>Jogar de heróis de engage como Chou não é apenas sobre o combo mais rápido (Flicker + Ultimate). É sobre <em>visão de mapa</em>.</p><blockquote>\"O melhor lutador é aquele que sabe a hora de não lutar.\"</blockquote><p>Esconda-se nos arbustos do Mid Game. Não foque o tanque, sempre encontre um ângulo para chegar no Atirador ou Mago inimigo. Sua build no late game deve transicionar para itens de defesa (Imortal, Atena) após o nível 12.</p>"
+            },
+            {
+                id: 3,
+                title: "Penetração Mágica vs Poder Mágico Bruto",
+                category: "Análise de Itens",
+                categoryColor: "bg-mlbb-gold text-black",
+                date: "05 Jul, 2026",
+                image: "https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=1931&auto=format&fit=crop",
+                content: "<h3>Entenda a Matemática</h3><p>Muitos jogadores fazem <strong>Asas Sangrentas</strong> esperando dar o maior dano possível, mas ignoram a resistência mágica inimiga.</p><p>Se o tanque ou atirador inimigo comprou <em>Atena</em> ou <em>Armadura Radiante</em>, o Poder Mágico Bruto não servirá de nada. Você <strong>precisa</strong> comprar <strong>Glaive Divina</strong>. Ela concede penetração mágica percentual, derretendo defesas pesadas e aumentando exponencialmente o seu dano real final.</p>"
+            }
+        ];
+
+        let quillEditor;
+
+        function getCategoryColor(category) {
+            if(category === 'Macro') return 'bg-mlbb-accent text-white';
+            if(category === 'Guia de Herói') return 'bg-mlbb-primary text-white';
+            if(category === 'Análise de Itens') return 'bg-mlbb-gold text-black';
+            if(category === 'Meta') return 'bg-green-500 text-white';
+            return 'bg-gray-500 text-white';
+        }
+
+        function showCustomToast(title, msg) {
+            const toast = document.getElementById('toast');
+            toast.querySelector('h4').innerText = title;
+            toast.querySelector('p').innerText = msg;
+            toast.classList.remove('translate-y-[150%]', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-[150%]', 'opacity-0');
+            }, 4000);
+        }
+
+        // ----------------------------------------------------
+        // RENDER: INJETAR GUIAS NA TELA
+        // ----------------------------------------------------
+        function renderPosts() {
+            const container = document.getElementById('posts-container');
+            const dashboardList = document.getElementById('dashboard-posts-list');
+            if(!container || !dashboardList) return;
+
+            container.innerHTML = '';
+            dashboardList.innerHTML = '';
+
+            posts.forEach(post => {
+                // Stripping de HTML para o resumo no card
+                const tmp = document.createElement("DIV");
+                tmp.innerHTML = post.content;
+                const textContent = tmp.textContent || tmp.innerText || "";
+                const excerpt = textContent.substring(0, 110) + '...';
+
+                // Render Card Público
+                const html = `
+                    <article class="bg-mlbb-dark rounded-xl overflow-hidden border border-gray-800 hover:border-mlbb-primary transition-all duration-300 group flex flex-col cursor-pointer" onclick="openReadModal(${post.id})">
+                        <div class="relative h-48 overflow-hidden bg-gray-900">
+                            <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-mlbb-dark to-transparent opacity-60"></div>
+                            <div class="absolute top-4 left-4 ${post.categoryColor || getCategoryColor(post.category)} text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-lg">
+                                ${post.category}
+                            </div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex items-center text-xs text-gray-400 mb-3 gap-4">
+                                <span class="flex items-center gap-1"><i class="ph ph-calendar-blank"></i> ${post.date}</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-mlbb-primary transition-colors line-clamp-2 font-display">
+                                ${post.title}
+                            </h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-3 flex-1">
+                                ${excerpt}
+                            </p>
+                            <div class="mt-auto inline-flex items-center text-mlbb-primary font-semibold hover:text-white transition-colors">
+                                Ler Guia Completo <i class="ph-bold ph-caret-right ml-1"></i>
+                            </div>
+                        </div>
+                    </article>
+                `;
+                container.innerHTML += html;
+
+                // Render Linha no Dashboard
+                const dashHtml = `
+                    <tr class="hover:bg-gray-800/50 transition-colors">
+                        <td class="px-6 py-4 font-medium text-white">
+                            <div class="line-clamp-1 max-w-[150px] sm:max-w-xs">${post.title}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="${post.categoryColor || getCategoryColor(post.category)} px-2 py-1 rounded text-xs font-bold whitespace-nowrap">${post.category}</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-400 hidden sm:table-cell">${post.date}</td>
+                        <td class="px-6 py-4 text-right whitespace-nowrap">
+                            <button onclick="editPost(${post.id})" class="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-2 rounded transition-colors mr-2" title="Editar">
+                                <i class="ph-bold ph-pencil-simple text-lg"></i>
+                            </button>
+                            <button onclick="deletePost(${post.id})" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded transition-colors" title="Excluir">
+                                <i class="ph-bold ph-trash text-lg"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                dashboardList.innerHTML += dashHtml;
+            });
+        }
+
+        // ----------------------------------------------------
+        // LÓGICA DO EDITOR E DASHBOARD (CRUD)
+        // ----------------------------------------------------
+        function openDashboard(e) {
+            if(e) e.preventDefault();
+            const dash = document.getElementById('editor-dashboard');
+            dash.classList.remove('hidden');
+            void dash.offsetWidth; 
+            dash.classList.remove('opacity-0');
+            dash.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        function closeDashboard() {
+            const dash = document.getElementById('editor-dashboard');
+            dash.classList.add('opacity-0');
+            setTimeout(() => {
+                dash.classList.add('hidden');
+                dash.classList.remove('flex');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        function initQuill() {
+            if(!quillEditor) {
+                quillEditor = new Quill('#editor-container', {
+                    theme: 'snow',
+                    placeholder: 'Escreva todo o seu conhecimento aqui...',
+                    modules: {
+                        toolbar: [
+                            [{ 'header': [2, 3, false] }],
+                            ['bold', 'italic', 'underline', 'strike'],
+                            ['blockquote', 'code-block'],
+                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                            [{ 'color': [] }, { 'background': [] }],
+                            ['link', 'image', 'video'],
+                            ['clean']
+                        ]
+                    }
+                });
+            }
+        }
+
+        function openEditorModal() {
+            initQuill();
+            document.getElementById('post-id').value = '';
+            document.getElementById('post-title').value = '';
+            document.getElementById('post-image').value = '';
+            document.getElementById('post-category').value = 'Macro';
+            quillEditor.root.innerHTML = '';
+            document.getElementById('editor-title-text').innerText = 'Criar Novo Guia';
+
+            const modal = document.getElementById('editor-modal');
+            modal.classList.remove('hidden');
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modal.classList.add('flex');
+        }
+
+        function closeEditorModal() {
+            const modal = document.getElementById('editor-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+        }
+
+        function editPost(id) {
+            const post = posts.find(p => p.id === id);
+            if(!post) return;
+
+            initQuill();
+            document.getElementById('post-id').value = post.id;
+            document.getElementById('post-title').value = post.title;
+            document.getElementById('post-image').value = post.image;
+            document.getElementById('post-category').value = post.category;
+            quillEditor.root.innerHTML = post.content;
+            
+            document.getElementById('editor-title-text').innerText = 'Editar Guia';
+
+            const modal = document.getElementById('editor-modal');
+            modal.classList.remove('hidden');
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modal.classList.add('flex');
+        }
+
+        function savePost() {
+            const id = document.getElementById('post-id').value;
+            const title = document.getElementById('post-title').value;
+            const category = document.getElementById('post-category').value;
+            const rawImage = document.getElementById('post-image').value;
+            const image = rawImage || `https://placehold.co/600x400/151C33/ED6100?text=${encodeURIComponent(category)}`;
+            const content = quillEditor.root.innerHTML;
+
+            if(!title || quillEditor.getText().trim().length === 0) {
+                showCustomToast('Atenção', 'Título e Conteúdo são obrigatórios.');
+                return;
+            }
+
+            const dateStr = new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).replace('.', '');
+
+            if(id) {
+                // Atualizar
+                const index = posts.findIndex(p => p.id == id);
+                if(index !== -1) {
+                    posts[index] = { ...posts[index], title, category, image, content, categoryColor: getCategoryColor(category) };
+                }
+            } else {
+                // Criar Novo
+                const newId = posts.length > 0 ? Math.max(...posts.map(p => p.id)) + 1 : 1;
+                posts.unshift({ id: newId, title, category, categoryColor: getCategoryColor(category), date: dateStr, image, content });
+            }
+
+            renderPosts();
+            closeEditorModal();
+            showCustomToast('Sucesso!', 'Guia salvo e publicado com sucesso.');
+        }
+
+        function deletePost(id) {
+            posts = posts.filter(p => p.id !== id);
+            renderPosts();
+            showCustomToast('Guia Excluído', 'O item foi removido permanentemente.');
+        }
+
+        // ----------------------------------------------------
+        // LÓGICA DE LEITURA DO POST (POP-UP)
+        // ----------------------------------------------------
+        function openReadModal(id) {
+            const post = posts.find(p => p.id === id);
+            if(!post) return;
+
+            document.getElementById('read-post-title').innerText = post.title;
+            document.getElementById('read-post-date').innerHTML = `<i class="ph ph-calendar-blank"></i> Publicado em ${post.date}`;
+            document.getElementById('read-post-img').src = post.image;
+            document.getElementById('read-post-content').innerHTML = post.content;
+            
+            const catBadge = document.getElementById('read-post-category');
+            catBadge.innerText = post.category;
+            catBadge.className = `absolute top-4 left-4 sm:top-6 sm:left-6 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-lg ${post.categoryColor || getCategoryColor(post.category)}`;
+
+            const modal = document.getElementById('read-post-modal');
+            modal.classList.remove('hidden');
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeReadModal() {
+            const modal = document.getElementById('read-post-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }, 300);
+        }
     </script>
 </body>
 </html>
